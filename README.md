@@ -1,5 +1,2 @@
-# vim-conf
-# vim-conf
-# vim-conf
-# vim-conf
-# vim-conf
+Vim configuration for C developpement
+Work in progress
