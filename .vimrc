@@ -125,6 +125,9 @@ augroup END
 
 colorscheme alduin 
 
+let g:user42 = 'lefendie'
+let g:mail42 = 'lefendie@student.42.fr'
+
 "	Vjj4>		move three lines 4 indents to the right
 "	:<<<		move current line 3 indents to the left
 "	:>> 5		move 5 lines 2 indents to the right
