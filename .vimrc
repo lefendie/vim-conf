@@ -50,7 +50,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>o	o<Esc>
 nnoremap <leader>O	O<Esc>
 
-nnoremap <C-k> <C-w>l<Esc>
 nnoremap wwh <C-w>h<Esc>
 
 nnoremap wwl <C-w>l<Esc>
@@ -97,19 +96,26 @@ map	<F6> :!./*
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
 "NERD TREE
-nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap nt :NERDTreeToggle<Enter>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))                  
+		silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs          
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+endif                                                                         
+
+
+
 "PLUGIN MANAGER
 call plug#begin('~/.vim/plugged')
-	Plug 'AlessandroYorba/Alduin'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'mileszs/ack.vim'
-	Plug 'mg979/vim-visual-multi'
-	Plug 'itchyny/lightline.vim'
-	Plug 'vim-scripts/AutoComplPop'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'AlessandroYorba/Alduin'                                               
+  Plug 'scrooloose/nerdtree'                                                  
+  Plug 'scrooloose/syntastic'                                                 
+  Plug 'valloric/youcompleteme'                                               
+  Plug 'yggdroot/indentline'                                                  
+	"Plug 'ervandew/supertab'
+	"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 let g:alduin_Shout_Dragon_Aspect = 0
@@ -128,9 +134,28 @@ colorscheme alduin
 let g:user42 = 'lefendie'
 let g:mail42 = 'lefendie@student.42.fr'
 
-"	Vjj4>		move three lines 4 indents to the right
-"	:<<<		move current line 3 indents to the left
-"	:>> 5		move 5 lines 2 indents to the right
-"
-"
-autocmd FileType markdown let b:coc_suggest_disable = 1
+autocmd FileType markdown let b:coc_suggest_disable = 1                       
+
+set statusline+=%#warningmsg#                                                 
+set statusline+=%{SyntasticStatuslineFlag()}                                  
+set statusline+=%*                                                            
+let g:syntastic_always_populate_loc_list = 1                                  
+let g:syntastic_auto_loc_list = 1                                             
+let g:syntastic_check_on_open = 1                                             
+let g:syntastic_check_on_wq = 0                                               
+let g:syntastic_cpp_check_header = 1                                          
+let g:indentLine_setColors = 0                                                
+
+"let g:SuperTabDefaultCompletionType = "<C-n>"
+
+"YCM
+let g:ycm_key_invoke_completion = '<Tab>'
+let g:ycm_auto_trigger =1
+let g:ycm_enable_semantic_highlighting=1
+
+nnoremap -df :YcmCompleter GoToDefinition <Enter>
+nnoremap -dc :YcmCompleter GoToDeclaration <Enter>
+nnoremap -rf :YcmCompleter GotoReference <Enter>
+nnoremap -ff :YcmCompleter FixIt <Enter>
+
+
